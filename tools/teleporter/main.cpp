@@ -110,10 +110,8 @@ int main(int argc, char ** argv)
     // Show progress
     while (!finished)
     {
-        using namespace std::literals;
         std::cout << '\r' << nextNumber;
-
-        std::this_thread::sleep_for(100ms);
+        std::this_thread::yield();
     }
 
     std::cout << '\r';
