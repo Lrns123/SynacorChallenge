@@ -1,0 +1,22 @@
+              ^
+|---|---|---|---|   
+| * | 8 | - | 1 |
+| 4 | * | 11| * |
+| + | 4 | - |18 |
+| 22| - | 9 | * |
+|---|---|---|---|
+  ^
+
+Shortest path: 12 steps
+north
+east
+east
+north
+west
+south
+east
+east
+west
+north
+north
+east

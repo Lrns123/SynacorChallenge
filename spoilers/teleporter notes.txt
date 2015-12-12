@@ -1,0 +1,70 @@
+References to R7:
+0x154b
+0x1592
+0x179a
+
+Validation loop: 0x178b
+To disable: nop 0x1571 and 0x1572
+
+Invocation:
+
+R0 = 4
+R1 = 1
+validate(R0, R1)
+R0 -> 6
+
+Validation Pseudocode:
+
+func (a, b)
+{
+	if (a)
+	{
+		if (b)
+		{
+			push a;
+			--b;
+			f(a, b)
+			b = a
+			pop a
+			--a
+			f(a, b)
+			return;
+		}
+		else
+		{
+			--a;
+			b = r7;
+			f(a, b)
+			return
+		}
+	}
+	else
+		a = b + 1;
+}
+
+Cleaned up:
+
+validate(a, b)
+{
+	if (a == 0)
+		return b + 1
+	
+	if (b == 0)
+		return validate(a - 1, r7)
+
+
+	return validate(a - 1, validate(a, b - 1))
+}
+
+Solved with bruteforce:
+r7 = 25734
+
+Debugger commands to patch:
+
+mem 154b 7
+mem 156d 6
+mem 156f 32775
+mem 1570 25734
+mem 1571 21
+mem 1572 21
+

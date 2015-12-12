@@ -1,0 +1,86 @@
+load challenge.bin
+mem 154b 7
+mem 156d 6
+mem 156f 32775
+mem 1570 25734
+mem 1571 21
+mem 1572 21
+run
+take tablet
+go doorway
+go north
+go north
+go bridge
+go continue
+go down
+go east
+take empty lantern
+go west
+go west
+go passage
+go ladder
+go west
+go south
+go north
+take can
+use can
+go west
+go ladder
+go darkness
+use lantern
+go continue
+go west
+go west
+go west
+go west
+go north
+take red coin
+go north
+go west
+take blue coin
+go up
+take shiny coin
+go down
+go east
+go east
+take concave coin
+go down
+take corroded coin
+go up
+go west
+use blue coin
+use red coin
+use shiny coin
+use concave coin
+use corroded coin
+go north
+take teleporter
+use teleporter
+north
+north
+north
+north
+north
+north
+north
+east
+take journal
+west
+north
+north
+take orb
+north
+east
+east
+north
+west
+south
+east
+east
+west
+north
+north
+east
+vault
+take mirror
+use mirror

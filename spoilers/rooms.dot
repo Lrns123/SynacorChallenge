@@ -1,0 +1,287 @@
+digraph G {
+	rankdir=LR;
+
+	// Game start
+	subgraph cluster_start {
+		label="Begin";
+		color="#3344dd";
+		
+		r2317 [label=<Foothills<br/><font point-size="8">2317 - Start</font>>, style=filled, color="#3344dd", fillcolor="#88aaff", shape=diamond];
+		r2327 [label=<Dark cave<br/><font point-size="8">2327</font>>];
+		r2332 [label=<Dark cave<br/><font point-size="8">2332</font>>];
+		r2337 [label=<Dark cave<br/><font point-size="8">2337</font>>];
+		r2342 [label=<Rope bridge<br/><font point-size="8">2342</font>>];
+		r2347 [label=<Falling through the air!<br/><font point-size="8">2347</font>>];
+		r2352 [label=<Moss cavern<br/><font point-size="8">2352</font>>];
+		r2362 [label=<Moss cavern<br/><font point-size="8">2362</font>>];
+		r2367 [label=<Passage<br/><font point-size="8">2367</font>>];
+		
+		r2377 [label=<Twisty passages<br/><font point-size="8">2377</font>>];
+		r2382 [label=<Twisty passages<br/><font point-size="8">2382</font>>];
+		r2387 [label=<Twisty passages<br/><font point-size="8">2387</font>>];
+		r2392 [label=<Twisty passages<br/><font point-size="8">2392</font>>];
+		r2407 [label=<Twisty passages<br/><font point-size="8">2407</font>>];
+		r2422 [label=<Twisty passages<br/><font point-size="8">2422</font>>];
+		r2397 [label=<Twisty passages<br/><font point-size="8">2397</font>>];
+		r2402 [label=<Twisty passages<br/><font point-size="8">2402</font>>];
+		r2412 [label=<Twisty passages<br/><font point-size="8">2412</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		
+		r2372 [label=<Passage<br/><font point-size="8">2372</font>>];
+		r2427 [label=<Dark passage<br/><font point-size="8">2427</font>>];
+		r2432 [label=<Dark passage<br/><font point-size="8">2432</font>>];
+		r2437 [label=<Dark passage<br/><font point-size="8">2437</font>>];
+		r2442 [label=<Dark passage<br/><font point-size="8">2442</font>>];
+		r2447 [label=<Ruins<br/><font point-size="8">2447</font>>];
+		r2452 [label=<Ruins<br/><font point-size="8">2452</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		r2457 [label=<Ruins<br/><font point-size="8">2457</font>>];
+		r2463 [label=<Ruins<br/><font point-size="8">2463</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		r2468 [label=<Ruins<br/><font point-size="8">2468</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		r2473 [label=<Ruins<br/><font point-size="8">2473</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		r2478 [label=<Ruins<br/><font point-size="8">2478</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		r2483 [label=<Ruins<br/><font point-size="8">2483</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		r2357 [label=<Moss cavern<br/><font point-size="8">2357</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		r2322 [label=<Foothills<br/><font point-size="8">2322</font>>];
+	}
+	
+	// Grue death sequence
+	subgraph cluster_grue {
+		label="Grue Death Sequence";
+		color="#dd4433";
+		
+		r2648 [label=<Fumbling around in the darkness<br/><font point-size="8">2648</font>>];
+		r2653 [label=<Fumbling around in the darkness<br/><font point-size="8">2653</font>>];
+		r2658 [label=<Panicked and lost<br/><font point-size="8">2658</font>>];
+		r2663 [label=<Eaten<br/><font point-size="8">2663 - Dead</font>>, style=filled, color="#dd4433", fillcolor="#ffaa88", shape=diamond];
+	}
+	
+	// Synacor HQ
+	subgraph cluster_synacor {
+		label="Synacor HQ";
+		color="#3344dd";
+		
+		r2488 [label=<Synacor Headquarters<br/><font point-size="8">2488</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		r2493 [label=<Synacor Headquarters<br/><font point-size="8">2493</font>>];
+	}
+
+	// Alternate teleporter destination
+	subgraph cluster_teleporter {
+		label="Alternate Teleporter Destination";
+		color="#3344dd";
+		
+		r2498 [label=<Beach<br/><font point-size="8">2498</font>>];
+		r2503 [label=<Beach<br/><font point-size="8">2503</font>>];
+		r2508 [label=<Beach<br/><font point-size="8">2508</font>>];
+		r2513 [label=<Tropical Island<br/><font point-size="8">2513</font>>];
+		r2523 [label=<Tropical Island<br/><font point-size="8">2523</font>>];
+		r2528 [label=<Tropical Island<br/><font point-size="8">2528</font>>];
+		r2533 [label=<Tropical Island<br/><font point-size="8">2533</font>>];
+		r2538 [label=<Tropical Cave<br/><font point-size="8">2538</font>>];
+		r2543 [label=<Tropical Cave<br/><font point-size="8">2543</font>>];
+		r2548 [label=<Tropical Cave<br/><font point-size="8">2548</font>>];
+		r2558 [label=<Tropical Cave<br/><font point-size="8">2558</font>>];
+		r2623 [label=<Vault Antechamber<br/><font point-size="8">2623</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		r2603 [label=<Vault Lock<br/><font point-size="8">2603</font>>];
+		r2583 [label=<Vault Lock<br/><font point-size="8">2583</font>>];
+		r2563 [label=<Vault Lock<br/><font point-size="8">2563</font>>];
+		r2568 [label=<Vault Lock<br/><font point-size="8">2568</font>>];
+		r2573 [label=<Vault Lock<br/><font point-size="8">2573</font>>];
+		r2578 [label=<Vault Door<br/><font point-size="8">2578</font>>];
+		r2598 [label=<Vault Lock<br/><font point-size="8">2598</font>>];
+		r2618 [label=<Vault Lock<br/><font point-size="8">2618</font>>];
+		r2638 [label=<Vault Lock<br/><font point-size="8">2638</font>>];
+		r2633 [label=<Vault Lock<br/><font point-size="8">2633</font>>];
+		r2613 [label=<Vault Lock<br/><font point-size="8">2613</font>>];
+		r2593 [label=<Vault Lock<br/><font point-size="8">2593</font>>];
+		r2588 [label=<Vault Lock<br/><font point-size="8">2588</font>>];
+		r2608 [label=<Vault Lock<br/><font point-size="8">2608</font>>];
+		r2628 [label=<Vault Lock<br/><font point-size="8">2628</font>>];
+		r2643 [label=<Vault<br/><font point-size="8">2643 - End</font>>, style=filled, color="#3344dd", fillcolor="#88aaff", shape=diamond];
+		r2553 [label=<Tropical Cave Alcove<br/><font point-size="8">2553</font>>, style=filled, color="#3344dd", fillcolor="#88aaff"];
+		r2518 [label=<Tropical Island<br/><font point-size="8">2518</font>>];
+		
+		// Align vault chambers in a grid
+		{rank=same r2623 r2603 r2583 r2563};
+		{rank=same r2628 r2608 r2588 r2568};
+		{rank=same r2633 r2613 r2593 r2573};
+		{rank=same r2638 r2618 r2598 r2578};
+	}
+	
+	r2317 -> r2327 [label="doorway"];
+	r2317 -> r2322 [label="south"];
+	r2327 -> r2332 [label="north"];
+	r2327 -> r2317 [label="south"];
+	r2332 -> r2337 [label="north"];
+	r2332 -> r2327 [label="south"];
+	r2337 -> r2342 [label="bridge"];
+	r2337 -> r2327 [label="south"];
+	r2342 -> r2347 [label="continue"];
+	r2342 -> r2337 [label="back"];
+	r2347 -> r2352 [label="down"];
+	r2352 -> r2362 [label="west"];
+	r2352 -> r2357 [label="east"];
+	r2362 -> r2352 [label="east"];
+	r2362 -> r2367 [label="passage"];
+	r2367 -> r2362 [label="cavern"];
+	r2367 -> r2377 [label="ladder"];
+	r2367 -> r2372 [label="darkness"];
+	r2377 -> r2367 [label="ladder"];
+	r2377 -> r2382 [label="north"];
+	r2377 -> r2387 [label="south"];
+	r2377 -> r2392 [label="east"];
+	r2377 -> r2397 [label="west"];
+	r2382 -> r2387 [label="north"];
+	r2382 -> r2377 [label="south"];
+	r2382 -> r2382 [label="west"];
+	r2387 -> r2377 [label="north"];
+	r2387 -> r2382 [label="south"];
+	r2387 -> r2387 [label="east"];
+	r2392 -> r2407 [label="north"];
+	r2392 -> r2392 [label="south"];
+	r2392 -> r2377 [label="west"];
+
+	r2392 -> r2422 [label="east", color="#22ee22"];
+	r2392 -> r2648 [label="east", color="#ee2222"];
+
+	r2407 -> r2387 [label="north"];
+	r2407 -> r2382 [label="east"];
+	r2407 -> r2407 [label="south"];
+	r2422 -> r2387 [label="north"];
+	r2422 -> r2382 [label="south"];
+	r2397 -> r2397 [label="north"];
+	r2397 -> r2402 [label="south"];
+	r2397 -> r2377 [label="east"];
+	r2402 -> r2412 [label="north"];
+	r2402 -> r2382 [label="south"];
+	r2402 -> r2387 [label="west"];
+
+	r2402 -> r2422 [label="east", color="#22ee22"];
+	r2402 -> r2648 [label="east", color="#ee2222"];
+
+	r2412 -> r2377 [label="west"];
+
+	r2372 -> r2427 [label="continue", color="#22ee22"];
+	r2372 -> r2648 [label="continue", color="#ee2222"];
+
+	r2372 -> r2367 [label="back"];
+	r2427 -> r2432 [label="west"];
+	r2427 -> r2372 [label="east"];
+	r2432 -> r2427 [label="east"];
+	r2432 -> r2437 [label="west"];
+	r2437 -> r2432 [label="east"];
+	r2437 -> r2442 [label="west"];
+	r2442 -> r2437 [label="east"];
+	r2442 -> r2447 [label="west"];
+	r2447 -> r2442 [label="east"];
+	r2447 -> r2452 [label="north"];
+	r2452 -> r2457 [label="north"];
+	r2452 -> r2447 [label="south"];
+	r2457 -> r2463 [label="north"];
+	r2457 -> r2452 [label="south"];
+	r2457 -> r2468 [label="east"];
+	r2457 -> r2478 [label="west"];
+	r2463 -> r2457 [label="south"];
+
+	r2463 -> r2488 [label="teleporter", color="#ee2222", style=dashed];
+	r2463 -> r2498 [label="teleporter", color="#22ee22", style=dashed];
+
+	r2468 -> r2473 [label="down"];
+	r2468 -> r2457 [label="west"];
+	r2473 -> r2468 [label="up"];
+	r2478 -> r2483 [label="up"];
+	r2478 -> r2457 [label="east"];
+	r2483 -> r2478 [label="down"];
+	r2357 -> r2352 [label="west"];
+	r2322 -> r2317 [label="north"];
+
+	r2648 -> r2653 [label="forward"];
+	r2648 -> r2653 [label="back"];
+	r2653 -> r2658 [label="run"];
+	r2653 -> r2658 [label="investigate"];
+	r2658 -> r2663 [label="run"];
+	r2658 -> r2663 [label="wait"];
+	r2658 -> r2663 [label="hide"];
+
+	r2488 -> r2493 [label="outside"];
+	r2493 -> r2488 [label="inside"];
+
+	r2498 -> r2503 [label="west"];
+	r2498 -> r2508 [label="east"];
+	r2498 -> r2513 [label="north"];
+	r2503 -> r2498 [label="east"];
+	r2503 -> r2513 [label="north"];
+	r2513 -> r2523 [label="north"];
+	r2513 -> r2498 [label="south"];
+	r2513 -> r2518 [label="east"];
+	r2523 -> r2528 [label="north"];
+	r2523 -> r2513 [label="south"];
+	r2528 -> r2533 [label="north"];
+	r2528 -> r2523 [label="south"];
+	r2533 -> r2538 [label="north"];
+	r2533 -> r2528 [label="south"];
+	r2538 -> r2543 [label="north"];
+	r2538 -> r2533 [label="south"];
+	r2543 -> r2548 [label="north"];
+	r2543 -> r2538 [label="south"];
+	r2548 -> r2558 [label="north"];
+	r2548 -> r2543 [label="south"];
+	r2548 -> r2553 [label="east"];
+	r2558 -> r2623 [label="north"];
+	r2558 -> r2548 [label="south"];
+	r2623 -> r2603 [label="north"];
+	r2623 -> r2628 [label="east"];
+	r2623 -> r2558 [label="south"];
+	r2603 -> r2583 [label="north"];
+	r2603 -> r2608 [label="east"];
+	r2603 -> r2623 [label="south"];
+	r2583 -> r2563 [label="north"];
+	r2583 -> r2588 [label="east"];
+	r2583 -> r2603 [label="south"];
+	r2563 -> r2568 [label="east"];
+	r2563 -> r2583 [label="south"];
+	r2568 -> r2573 [label="east"];
+	r2568 -> r2588 [label="south"];
+	r2568 -> r2563 [label="west"];
+	r2573 -> r2578 [label="east"];
+	r2573 -> r2593 [label="south"];
+	r2573 -> r2568 [label="west"];
+	r2578 -> r2598 [label="south"];
+	r2578 -> r2573 [label="west"];
+	r2578 -> r2643 [label="vault"];
+	r2598 -> r2578 [label="north"];
+	r2598 -> r2618 [label="south"];
+	r2598 -> r2593 [label="west"];
+	r2618 -> r2598 [label="north"];
+	r2618 -> r2638 [label="south"];
+	r2618 -> r2613 [label="west"];
+	r2638 -> r2618 [label="north"];
+	r2638 -> r2633 [label="west"];
+	r2633 -> r2613 [label="north"];
+	r2633 -> r2638 [label="east"];
+	r2633 -> r2628 [label="west"];
+	r2613 -> r2593 [label="north"];
+	r2613 -> r2618 [label="east"];
+	r2613 -> r2633 [label="south"];
+	r2613 -> r2608 [label="west"];
+	r2593 -> r2573 [label="north"];
+	r2593 -> r2598 [label="east"];
+	r2593 -> r2613 [label="south"];
+	r2593 -> r2588 [label="west"];
+	r2588 -> r2568 [label="north"];
+	r2588 -> r2593 [label="east"];
+	r2588 -> r2608 [label="south"];
+	r2588 -> r2583 [label="west"];
+	r2608 -> r2588 [label="north"];
+	r2608 -> r2613 [label="east"];
+	r2608 -> r2628 [label="south"];
+	r2608 -> r2603 [label="west"];
+	r2628 -> r2608 [label="north"];
+	r2628 -> r2633 [label="east"];
+	r2628 -> r2623 [label="west"];
+	r2643 -> r2578 [label="leave"];
+	r2553 -> r2548 [label="west"];
+	r2518 -> r2523 [label="north"];
+	r2518 -> r2508 [label="south"];
+	r2518 -> r2513 [label="west"];
+	r2508 -> r2498 [label="west"];
+	r2508 -> r2518 [label="north"];
+}
