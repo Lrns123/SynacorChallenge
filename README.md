@@ -1,4 +1,4 @@
 Synacor Challenge
------------------
+=================
 
-Solution for the [Synacor Challenge](https://challenge.synacor.com/).
+This is my solution for the [Synacor Challenge](https://challenge.synacor.com/).
