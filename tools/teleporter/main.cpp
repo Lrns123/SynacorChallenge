@@ -6,9 +6,9 @@
 
 namespace
 {
-    std::atomic<unsigned short> nextNumber = 1;
-    std::atomic<unsigned short> goalNumber = 0xFFFF;
-    std::atomic<bool> finished = false;
+    std::atomic<unsigned short> nextNumber(1);
+    std::atomic<unsigned short> goalNumber(0xFFFF);
+    std::atomic<bool> finished(false);
 }
 
 

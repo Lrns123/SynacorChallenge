@@ -88,7 +88,7 @@ private:
 
         unsigned short n = m_binary.read(nameBase);
         if (n != m_binary.read(destinationBase))
-            throw std::exception("Could not read room exits. Number of exit names and room ids mismatch.");
+            throw std::runtime_error("Could not read room exits. Number of exit names and room ids mismatch.");
 
         for (unsigned short i = 1; i <= n; ++i)
             vec.emplace_back(m_binary.readString(m_binary.read(nameBase + i)), m_binary.read(destinationBase + i));
