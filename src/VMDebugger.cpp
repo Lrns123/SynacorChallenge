@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include <string>
+#include <iterator>
 
 namespace
 {
@@ -123,14 +124,10 @@ void VMDebugger::runShell()
 
 std::vector<std::string> VMDebugger::parseCommand(const std::string& command) const
 {
-    std::vector<std::string> ret;
     std::istringstream ss(command);
+    std::istream_iterator<std::string> begin(ss), end;
 
-    std::string token;
-    while (getline(ss, token, ' '))
-        ret.emplace_back(std::move(token));
-
-    return ret;
+    return std::vector<std::string>(begin, end);
 }
 
 ushort VMDebugger::printDisassembly(ushort ip)
@@ -205,8 +202,9 @@ void VMDebugger::disassembleOperand(std::ostream &ss, ushort operand) const
 
 bool VMDebugger::checkStdin()
 {
-    if (std::cin.eof()) // Ctrl-C was pressed
+    if (std::cin.eof()) // Stdin was closed
     {
+        // Flush and reopen stdin
         std::cin.clear();
         std::cin.ignore();
         std::cout << std::endl;
