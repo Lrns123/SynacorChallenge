@@ -84,7 +84,7 @@ void VMDebugger::runShell()
     {
         std::string command;
         std::cout << std::hex << "VM> ";
-        std::getline(std::cin, command);
+        getline(std::cin, command);
 
         if (checkStdin())
             continue;
@@ -141,6 +141,12 @@ ushort VMDebugger::printDisassembly(ushort ip)
 
 ushort VMDebugger::disassemble(std::ostream &ss, ushort ip) const
 {
+    if (ip > 32767)
+    {
+        ss << "err";
+        return ip;
+    }
+
     ushort opcode = m_vm.readMemory(ip++);
     if (opcode >= opcodeTable.size())
     {
@@ -151,7 +157,7 @@ ushort VMDebugger::disassemble(std::ostream &ss, ushort ip) const
     {
         auto info = opcodeTable[opcode];
         ss << info.name;
-        for (int i = 0; i != info.operands; ++i)
+        for (int i = 0; i != info.operands && ip < 32768; ++i)
         {
             ss << ' '; 
             disassembleOperand(ss, m_vm.readMemory(ip++));
@@ -224,8 +230,8 @@ void VMDebugger::cmdHelp(const ArgList& args)
     if (args.size() < 2)
     {
         std::cout << "Available commands:" << std::endl;
-        for (auto it = commandsList.cbegin(), eit = commandsList.cend(); it != eit; ++it)
-            std::cout << it->second.usage << std::endl;
+        for (const auto &command : commandsList)
+            std::cout << command.second.usage << std::endl;
     }
     else
     {
@@ -265,7 +271,7 @@ void VMDebugger::cmdLoad(const ArgList& args)
 
 void VMDebugger::cmdStep(const ArgList& args)
 {    
-    size_t ops = args.size() >= 2 ? std::stoi(args[1], nullptr, 0) : 1;
+    size_t ops = args.size() >= 2 ? stoi(args[1], nullptr, 0) : 1;
 
     while (ops-- && m_vm.step())
     {
@@ -297,23 +303,23 @@ void VMDebugger::cmdReg(const ArgList& args)
     if (argc < 2)
     {
         // List all registers
-        for (int i = 0; i != 8; ++i)
+        for (ushort i = 0; i != 8; ++i)
             std::cout << "R" << i << " = 0x" << m_vm.readRegister(i) << std::endl;
     }
     else if (argc < 3)
     {
-        int regId = std::stoi(args[1], nullptr, 0);
-        if (regId < 0 || regId > 7)
+        ushort regId = stoul(args[1], nullptr, 0) & 0x7FFF;
+        if (regId > 7)
             std::cout << "Invalid register." << std::endl;
         else
             std::cout << "R" << regId << " = 0x" << m_vm.readRegister(regId) << std::endl;
     }
     else
     {
-        int regId = std::stoi(args[1], nullptr, 0);
-        ushort value = std::stoi(args[2], nullptr, 0) & 0x7FFF;
+        ushort regId = stoul(args[1], nullptr, 0) & 0x7FFF;
+        ushort value = stoul(args[2], nullptr, 0) & 0x7FFF;
 
-        if (regId < 0 || regId > 7)
+        if (regId > 7)
             std::cout << "Invalid register." << std::endl;
         else
         {
@@ -332,18 +338,18 @@ void VMDebugger::cmdMem(const ArgList& args)
     }
     else if (argc < 3)
     {
-        int address = std::stoi(args[1], nullptr, 16);
-        if (address < 0 || address > 32767)
+        ushort address = stoul(args[1], nullptr, 16) & 0x7FFF;
+        if (address > 32767)
             std::cout << "Invalid address." << std::endl;
         else
             std::cout << "M[0x" << address << "] = 0x" << m_vm.readMemory(address) << std::endl;
     }
     else
     {
-        int address = std::stoi(args[1], nullptr, 16);
-        ushort value = std::stoi(args[2], nullptr, 0);
+        ushort address = stoul(args[1], nullptr, 16) & 0x7FFF;
+        ushort value = stoul(args[2], nullptr, 0) & 0xFFFF;
 
-        if (address < 0 || address > 32767)
+        if (address > 32767)
             std::cout << "Invalid address." << std::endl;
         else
         {
@@ -359,8 +365,8 @@ void VMDebugger::cmdPC(const ArgList& args)
         std::cout << "PC = 0x" << m_vm.instructionPointer() << std::endl;
     else
     {
-        ushort address = std::stoi(args[1], nullptr, 16) & 0x7FFF;
-        if (address < 0 || address > 32767)
+        ushort address = stoul(args[1], nullptr, 16) & 0x7FFF;
+        if (address > 32767)
             std::cout << "Invalid address." << std::endl;
         else
         {
@@ -376,8 +382,8 @@ void VMDebugger::cmdDis(const ArgList& args)
         std::cout << "Missing address" << std::endl;
     else
     {
-        ushort ip = std::stoi(args[1], nullptr, 16);
-        int count = args.size() < 3 ? 1 : std::stoi(args[2], nullptr, 0);
+        ushort ip = stoul(args[1], nullptr, 16) & 0x7FFF;
+        size_t count = args.size() < 3 ? 1 : stoul(args[2], nullptr, 0);
 
         do
         {
@@ -406,8 +412,8 @@ void VMDebugger::cmdBreak(const ArgList& args)
     }
     else
     {
-        ushort address = std::stoi(args[1], nullptr, 16) & 0x7FFF;
-        if (address < 0 || address > 32767)
+        ushort address = stoul(args[1], nullptr, 16) & 0x7FFF;
+        if (address > 32767)
             std::cout << "Invalid address." << std::endl;
         else
         {
@@ -427,19 +433,15 @@ void VMDebugger::cmdUnbreak(const ArgList& args)
     }
     else
     {
-        ushort address = std::stoi(args[1], nullptr, 16) & 0x7FFF;
-        if (address < 0 || address > 32767)
-            std::cout << "Invalid address." << std::endl;
+        ushort address = stoul(args[1], nullptr, 16) & 0x7FFF;
+        
+        auto it = m_breakpoints.find(address);
+        if (it == m_breakpoints.end())
+            std::cout << "No breakpoint on address " << address << std::endl;
         else
         {
-            auto it = m_breakpoints.find(address);
-            if (it == m_breakpoints.end())
-                std::cout << "No breakpoint on address " << address << std::endl;
-            else
-            {
-                std::cout << "Removed breakpoint at " << address << std::endl;
-                m_breakpoints.erase(it);
-            }
+            std::cout << "Removed breakpoint at " << address << std::endl;
+            m_breakpoints.erase(it);
         }
     }
 }
@@ -460,8 +462,11 @@ void VMDebugger::cmdDumpAsm(const ArgList& args)
 
         fs << "Synacor VM Disassembly" << std::endl << std::endl;
 
-        ushort start = args.size() < 3 ? 0 : stoi(args[2], nullptr, 16);
-        ushort end = args.size() < 4 ? 32768 : stoi(args[3], nullptr, 16);
+        ushort start = std::max<ushort>(32768, args.size() < 3 ? 0 : stoul(args[2], nullptr, 16) & 0xFFFF);
+        ushort end = std::max<ushort>(32768, args.size() < 4 ? 32768 : stoul(args[3], nullptr, 16) & 0xFFFF);
+
+        if (start > end)
+            std::swap(start, end);
 
        
         fs << std::hex << std::setfill('0');
@@ -493,8 +498,11 @@ void VMDebugger::cmdDump(const ArgList& args)
             return;
         }
 
-        ushort start = args.size() < 3 ? 0 : stoi(args[2], nullptr, 16);
-        ushort end = args.size() < 4 ? 32768 : stoi(args[3], nullptr, 16);
+        ushort start = std::max<ushort>(32768, args.size() < 3 ? 0 : stoul(args[2], nullptr, 16) & 0xFFFF);
+        ushort end = std::max<ushort>(32768, args.size() < 4 ? 32768 : stoul(args[3], nullptr, 16) & 0xFFFF);
+
+        if (start > end)
+            std::swap(start, end);
 
 
         for (ushort addr = start; addr < end; ++addr)
@@ -514,6 +522,6 @@ void VMDebugger::cmdStack(const ArgList& args)
     const auto &stack = m_vm.getStack();
 
     unsigned int pos = stack.size();
-    for (auto it = stack.cbegin(), eit = stack.cend(); it != eit; ++it)
-        std::cout << '[' << std::setw(4) << --pos << "] = " << *it << std::endl;
+    for (ushort value : stack)
+        std::cout << '[' << std::setw(4) << --pos << "] = " << value << std::endl;
 }
