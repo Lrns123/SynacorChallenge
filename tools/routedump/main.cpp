@@ -17,9 +17,9 @@ public:
             throw std::runtime_error("Could not open binary");
 
         unsigned short address = 0;
-        
+
         // TODO: Endianness
-        while (fi)
+        while (fi && address < 32768)
             fi.read(reinterpret_cast<char *>(&m_memory[address++]), 2);
     }
 
