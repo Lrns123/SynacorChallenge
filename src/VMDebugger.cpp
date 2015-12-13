@@ -264,8 +264,8 @@ void VMDebugger::cmdLoad(const ArgList& args)
         std::cout << "Please specify a file name to load." << std::endl;
     else
     {
-        ushort words = m_vm.loadBinary(args[1]);
-        std::cout << "Binary loaded into VM. (Size: " << std::dec << words << std::hex << " words)" << std::endl;
+        ushort endAddress = m_vm.loadBinary(args[1]);
+        std::cout << "Binary loaded into VM. (From 0x0 to 0x" << endAddress - 1 << ')' << std::endl;
     }
 }
 
@@ -462,8 +462,8 @@ void VMDebugger::cmdDumpAsm(const ArgList& args)
 
         fs << "Synacor VM Disassembly" << std::endl << std::endl;
 
-        ushort start = std::max<ushort>(32768, args.size() < 3 ? 0 : stoul(args[2], nullptr, 16) & 0xFFFF);
-        ushort end = std::max<ushort>(32768, args.size() < 4 ? 32768 : stoul(args[3], nullptr, 16) & 0xFFFF);
+        ushort start = std::min<ushort>(32768, args.size() < 3 ? 0 : stoul(args[2], nullptr, 16) & 0xFFFF);
+        ushort end = std::min<ushort>(32768, args.size() < 4 ? 32768 : stoul(args[3], nullptr, 16) & 0xFFFF);
 
         if (start > end)
             std::swap(start, end);
@@ -498,8 +498,8 @@ void VMDebugger::cmdDump(const ArgList& args)
             return;
         }
 
-        ushort start = std::max<ushort>(32768, args.size() < 3 ? 0 : stoul(args[2], nullptr, 16) & 0xFFFF);
-        ushort end = std::max<ushort>(32768, args.size() < 4 ? 32768 : stoul(args[3], nullptr, 16) & 0xFFFF);
+        ushort start = std::min<ushort>(32768, args.size() < 3 ? 0 : stoul(args[2], nullptr, 16) & 0xFFFF);
+        ushort end = std::min<ushort>(32768, args.size() < 4 ? 32768 : stoul(args[3], nullptr, 16) & 0xFFFF);
 
         if (start > end)
             std::swap(start, end);
