@@ -78,7 +78,8 @@ void VMDebugger::runShell()
 {
     std::cout << "Synacor VM interactive debugger" << std::endl << std::endl;
     std::cout << "For a list of commands, type 'help'." << std::endl;
-    std::cout << "To interrupt the VM when running, close stdin (usually Ctrl-Z or Ctrl-D) when the program requests input." << std::endl << std::endl;
+    std::cout << "To interrupt the VM when running, type '#' when the program requests input." << std::endl << std::endl;
+    m_vm.setEscapeChar('#');
 
     while (true)
     {
@@ -103,6 +104,11 @@ void VMDebugger::runShell()
             catch (const VMQuitException &)
             {
                 break;
+            }
+            catch (const SynacorVM::EscapeCharacterException &)
+            {
+                std::cout << "VM Interrupted at ";
+                printDisassembly(m_vm.instructionPointer());
             }
             catch (const VMInterruptException &)
             {

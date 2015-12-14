@@ -1,6 +1,7 @@
 ﻿#include "SynacorVM.hpp"
 #include <iostream>
 #include <fstream>
+#include <limits>
 
 SynacorVM::SynacorVM()
 {
@@ -254,7 +255,15 @@ bool SynacorVM::step()
     {
         ushort address = readOperand();
 
-        writeMemory(address, std::cin.get());
+        char ch = std::cin.get();
+        if (m_escapeChar && ch == m_escapeChar)
+        {
+            std::cin.ignore(std::numeric_limits<size_t>::max(), '\n');
+            m_instructionPointer -= 2;
+            throw EscapeCharacterException();
+        }
+
+        writeMemory(address, ch);
         return true;
     }
     case 21: /* NOOP */
@@ -294,6 +303,16 @@ bool SynacorVM::stackEmpty() const
 const std::deque<ushort>& SynacorVM::getStack() const
 {
     return m_stack;
+}
+
+char SynacorVM::escapeChar() const
+{
+    return m_escapeChar;
+}
+
+void SynacorVM::setEscapeChar(char escapeChar)
+{
+    m_escapeChar = escapeChar;
 }
 
 ushort SynacorVM::instructionPointer() const

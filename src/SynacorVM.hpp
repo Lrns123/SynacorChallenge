@@ -7,13 +7,14 @@ using ushort = unsigned short;
 
 class SynacorVM final
 {
+
     std::array<ushort, 32768> m_memory;
     std::array<ushort, 8> m_registers;
     unsigned short m_instructionPointer;
     std::deque<ushort> m_stack;
+    char m_escapeChar;
 
 public:
-
     SynacorVM();
 
     // Resets the VM and wipes memory.
@@ -50,6 +51,16 @@ public:
 
     // Returns the stack.
     const std::deque<ushort> &getStack() const;
+
+    // Returns the escape character. Interrupts execution if typed.
+    char escapeChar() const;
+
+    // Sets the escape character. Interrupts execution if typed. Set to 0 to disable.
+    void setEscapeChar(char escapeChar);
+
+    // Thrown if the escape character is typed.
+    class EscapeCharacterException
+    {};
 
 private:
     // Reads the next opcode.
