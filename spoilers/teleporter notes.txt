@@ -42,12 +42,12 @@ func (a, b)
 		a = b + 1;
 }
 
-Cleaned up:
+Cleaned up (modified Ackermann function):
 
 validate(a, b)
 {
 	if (a == 0)
-		return b + 1
+		return (b + 1) % 32768
 	
 	if (b == 0)
 		return validate(a - 1, r7)
