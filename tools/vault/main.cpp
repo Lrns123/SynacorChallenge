@@ -41,7 +41,6 @@ int mergeWeight(int value, int cellValue)
             return (value & MaxNum) * cellValue;
 
         throw InvalidPathException();
-
     }
     
     if (cellValue <= MaxNum)    // Two numbers in a row -> invalid path
@@ -49,7 +48,6 @@ int mergeWeight(int value, int cellValue)
 
     // Add pending operator
     return value | cellValue;
-    
 }
 
 enum Direction
@@ -60,25 +58,9 @@ enum Direction
     West
 };
 
-class StackHelper
+void search(unsigned x, unsigned y, int weight, unsigned maxDepth, std::vector<Direction> &stack, std::vector<Direction> &shortest)
 {
-    std::vector<Direction> &m_stack;
-
-public:
-    StackHelper(std::vector<Direction> & stack, Direction dir)
-        : m_stack(stack)
-    {
-        m_stack.push_back(dir);
-    }
-
-    ~StackHelper()
-    {
-        m_stack.pop_back();
-    }
-};
-
-void search(int x, int y, int weight, size_t maxDepth, std::vector<Direction> &stack, std::vector<Direction> &shortest)
-{
+    // Ignore paths that are longer than the shortest path found so far.
     if (shortest.size() != 0 && stack.size() >= shortest.size())
         return;
 
@@ -90,7 +72,6 @@ void search(int x, int y, int weight, size_t maxDepth, std::vector<Direction> &s
 
     if (x == 0 && y == 3 && stack.size() != 0) // Cannot return to start
         return;
-    
 
     if (x == 3 && y == 0) // Vault reached
     {
@@ -104,29 +85,10 @@ void search(int x, int y, int weight, size_t maxDepth, std::vector<Direction> &s
         return;
 
     // Recurse into neighbouring cells (depth-first search)
-    if (x > 0)
-    {
-        StackHelper helper(stack, West);
-        search(x - 1, y, weight, maxDepth, stack, shortest);
-    }
-
-    if (x < 3)
-    {
-        StackHelper helper(stack, East);
-        search(x + 1, y, weight, maxDepth, stack, shortest);
-    }
-
-    if (y > 0)
-    {
-        StackHelper helper(stack, North);
-        search(x, y - 1, weight, maxDepth, stack, shortest);
-    }
-
-    if (y < 3)
-    {
-        StackHelper helper(stack, South);
-        search(x, y + 1, weight, maxDepth, stack, shortest);
-    }
+    if (x > 0) stack.push_back(West),  search(x - 1, y, weight, maxDepth, stack, shortest), stack.pop_back();
+    if (x < 3) stack.push_back(East),  search(x + 1, y, weight, maxDepth, stack, shortest), stack.pop_back();
+    if (y > 0) stack.push_back(North), search(x, y - 1, weight, maxDepth, stack, shortest), stack.pop_back();
+    if (y < 3) stack.push_back(South), search(x, y + 1, weight, maxDepth, stack, shortest), stack.pop_back();
 }
 
 
@@ -135,7 +97,7 @@ int main(int argc, char **argv)
     std::cout << "Synacor Challenge vault solver." << std::endl;
     std::cout << "Starting scan for vault solution..." << std::endl;
 
-    size_t maxSteps = argc > 1 ? atoi(argv[1]) : 15;
+    unsigned maxSteps = argc > 1 ? atoi(argv[1]) : 12;
     std::cout << "Searching for shortest solution with up to " << maxSteps << " steps." << std::endl;
 
     try
@@ -144,10 +106,13 @@ int main(int argc, char **argv)
 
         std::vector<Direction> stack;
         std::vector<Direction> shortest;
+        stack.reserve(maxSteps);
 
         auto start = high_resolution_clock::now();
+
         // Run depth-first search through the grid.
         search(0, 3, Add, maxSteps, stack, shortest);
+
         auto end = high_resolution_clock::now();
 
         std::cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms" << std::endl << std::endl;
